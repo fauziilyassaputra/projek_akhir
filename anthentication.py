@@ -1,0 +1,98 @@
+# Database pengguna (global, untuk kesederhanaan)
+database = [
+    {"user_id": 0, "username": "Zutto", "password": "password123", "role": "Pembeli", "saldo": 0},
+    {"user_id": 1, "username": "damar", "password": "damar123", "role": "Penjual", "saldo": 0},
+    {"user_id": 2, "username": "Lux", "password": "admin123", "role": "Penjual", "saldo": 0}
+]
+
+def register():
+
+    print("\n--- Registrasi ---")
+    username = input("Username (tanpa spasi): ")
+    
+    # Cek username
+    for cekUser in database:
+        if cekUser["username"] == username:
+            print("Username udah ada.")
+            return
+            
+    password = input("Buat Password: ")
+        
+    # Pilih Role
+    print("Role:\n1. Pembeli\n2. Penjual")
+    RolePilihan = input("Pilih Role:")
+    role = ""
+    if RolePilihan == '1':
+        role = "Pembeli"
+    elif RolePilihan == '2':
+        role = "Penjual"
+    else:
+        print("Pilih role yang benar")
+        return
+        
+    # konstruksi data baru
+    idUserBaru = len(database)
+    userBaru = {
+        "user_id": idUserBaru,
+        "username": username,
+        "password": password,
+        "role": role,
+        "saldo": 0
+    }
+    
+    # masukkan ke database
+    database.append(userBaru)
+    print(f"Registrasi berhasil! Silakan login, {username}")
+
+
+def login():
+    print("\n--- Halaman Login ---")
+    username = input("Username: ")
+    password = input("Password: ")
+    
+    # Cari pengguna di database
+    for cekUser in database:
+        if cekUser["username"] == username and cekUser["password"] == password:
+            print(f"Login berhasil! {username}")
+            
+            # Ke menu sesuai role
+            if cekUser["role"] == "Pembeli":
+                print("--- Menu Pembeli ---")
+                print("1. Lihat Barang")
+                print("2. Logout (Kembali ke menu utama)")
+
+            elif cekUser["role"] == "Penjual":
+                print("--- Menu Penjual ---")
+                print("1. Tambah Barang")
+                print("2. Logout (Kembali ke menu utama)")
+            
+            return
+            
+    # Kalau user dan password tidak ditemukan
+    print("Username atau password salah.")
+
+################################################################################################
+# Bagian utama kode
+
+while True:
+    print('''
+========================
+|    Ini E-Commerce    |
+========================
+1. Login
+2. Register
+3. Keluar
+''')
+
+    pilihan = input("Pilih 1/2/3: ")
+    if pilihan == '1':
+        login()  
+    elif pilihan == '2':
+        register() 
+    elif pilihan == '3':
+        print("Terima kasih!")
+        break 
+        
+    else:
+        print("Pilihan tidak valid.")
+
