@@ -15,22 +15,31 @@ transaksi = [
   {"transaksi_id": 1, "user_id": 0, "produk_id": 1, "status": "Menunggu penjual"}
 ]
 
-
-def tambah_produk(user_id):
+# Tambah produk ke database Produk
+def tambah_produk(id):
   nama_barang = input("Masukkan nama produk: ")
   harga_barang = int(input("Masukkan harga: "))
 
-  produk.append({
+  produk_baru = {
     "produk_id": len(produk),
-    "user_id": user_id,
+    "user_id": id,
     "nama" : nama_barang,
     "harga" : harga_barang
-  })
+  }
+  produk.append(produk_baru)
+  print(f"Produk {nama_barang.capitalize()} berhasil ditambahkan dengan harga Rp{harga_barang:,}")
 
-def list_produk(user_id):
-  for x in produk:
-    if x["user_id"] == user_id:
-      print(f"{x["produk_id"]}. {x["nama"]} dengan harga {x["harga"]}")
+# Cek data produk sesuai id penjual/user
+def list_produk(id):
+  produk_penjual = [x for x in produk if x["user_id"] == id]
+
+  print("Daftar Produk Kamu")
+  if produk_penjual:
+    for x in produk_penjual:
+      produk_id, _, nama, harga = x.values()
+      print(f"{produk_id}. {nama} - Rp {harga:,}")
+  else:
+    print("Produk tidak tersedia")
 
 def cek_transaksi():
   pass
@@ -56,6 +65,7 @@ Silakan pilih tugas anda:
     case "3":
       cek_transaksi()
     case "4":
+      print("Terima kasih!")
       exit()
     case _:
       print("Maaf pilihan tidak ada di list")
