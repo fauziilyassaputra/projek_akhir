@@ -33,7 +33,6 @@ def tambah_produk(id):
 def list_produk(id):
   produk_penjual = [x for x in produk if x["user_id"] == id]
 
-  print("Daftar Produk Kamu")
   if produk_penjual:
     for x in produk_penjual:
       produk_id, _, nama, harga = x.values()
@@ -41,9 +40,16 @@ def list_produk(id):
   else:
     print("Produk tidak tersedia")
 
+# Cek transaksi produk penjual
 def cek_transaksi():
   pass
 
+def title_section(title):
+  print(f"""
+=====================================
+    {title}
+=====================================
+""")
 
 def penjual(data_user):
   print(f"""
@@ -59,10 +65,13 @@ Silakan pilih tugas anda:
 
   match task:
     case "1":
+      title_section("Daftar Produk kamu")
       list_produk(data_user["user_id"])
     case "2":
+      title_section("Tambah Produk baru")
       tambah_produk(data_user["user_id"])
     case "3":
+      title_section("Cek transaksi produk kamu")
       cek_transaksi()
     case "4":
       print("Terima kasih!")
