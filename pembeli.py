@@ -97,6 +97,7 @@ def cari_barang(user_id):
     if saldo_user <  produk[inputan_barang - 1]["harga"]:
         print("maaf, saldo anda tidak cukup")
         print("============")
+        
     pesanan_user = {
         "transaksi_id": len(transaksi),
         "produk_id": inputan_barang - 1,
