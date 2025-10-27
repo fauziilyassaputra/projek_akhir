@@ -57,10 +57,6 @@ def login():
         if cekUser["username"] == username and cekUser["password"] == password:
             print(f"Login berhasil! {username}")
             idnya = cekUser["user_id"]
-
-            # dapatkan index pengguna yang login
-            user_index = database.index(cekUser)
-            print(f"Index login di database: {user_index}")
             
             # Ke menu sesuai role
             if cekUser["role"] == "Pembeli":
