@@ -73,24 +73,41 @@ def saldo():
 
     match pilihan:
         case "1":
-            print(f"saldo anda sekarang totalnya adalah : {saldo_sekarang}")         
+            print(f"saldo anda sekarang totalnya adalah : {saldo_sekarang}")  
+            print("============")       
         case "2":
             nominal_tambah = int(input("masukkan nominal tambahan saldo: "))
             saldo_sekarang += nominal_tambah
             print(f"saldo anda sekarang totalnya adalah : {saldo_sekarang}")
+            print("============")
         case _:
             print("nomor yang anda masukkan tidak valid")
+            print("============")
 
             
 def cari_barang(user_id):
+    print(f"seluruh barang yang tersedia saat ini : ")
     for i in range(len(produk)):
-        if user_id == produk[i]["user_id"]:
-            nomor = i + 1
-            print(f"no.{nomor}nama produk: {produk[i]["nama"]}, harga produk: {produk[i]["harga"]}")
-            user_input_barang= input(f"ketik sesuai nomor barang yang ingin anda beli : ")
-            
+        nomor = i + 1
+        print(f"no.{nomor} nama produk = {produk[i]["nama"]}, harga produk = {produk[i]["harga"]}")
+    inputan_barang = int(input("masukkan nomor barang yang ingin dibeli: "))
 
+    saldo_user = data["saldo"]
 
+    if saldo_user <  produk[inputan_barang - 1]["harga"]:
+        print("maaf, saldo anda tidak cukup")
+        print("============")
+    pesanan_user = {
+        "transaksi_id": len(transaksi),
+        "produk_id": inputan_barang - 1,
+        "user_id": user_id,
+        "status": "Menunggu penjual"
+    }
+
+    if pesanan_user != False:
+        transaksi.append(pesanan_user)
+        print("selamat anda berhasil memesan")
+        print("============")
 
 # main function
 def pembeli(data):
@@ -111,7 +128,7 @@ def pembeli(data):
         case "1":
             cek_transaksi(id)
         case "2":
-            pass
+            cari_barang(id)
         case "3":
             saldo()
         case "4":
@@ -121,5 +138,5 @@ def pembeli(data):
 
 
 
-
-pembeli(data)
+while True:
+    pembeli(data)
