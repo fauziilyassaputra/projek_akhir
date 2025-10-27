@@ -1,9 +1,6 @@
-# Database pengguna (global, untuk kesederhanaan)
-database = [
-    {"user_id": 0, "username": "Zutto", "password": "password123", "role": "Pembeli", "saldo": 0},
-    {"user_id": 1, "username": "damar", "password": "damar123", "role": "Penjual", "saldo": 0},
-    {"user_id": 2, "username": "Lux", "password": "admin123", "role": "Penjual", "saldo": 0}
-]
+from pembeli import pembeli
+from penjual import penjual
+from data import database
 
 panjangInisialDatabase = int(len(database))
 
@@ -57,19 +54,14 @@ def login():
         if cekUser["username"] == username and cekUser["password"] == password:
             print(f"Login berhasil! {username}")
             idnya = cekUser["user_id"]
-
-            # dapatkan index pengguna yang login
-            user_index = database.index(cekUser)
-            print(f"Index login di database: {user_index}")
             
-            # Ke menu sesuai role
-            if cekUser["role"] == "Pembeli":
-                pembeli(database[idnya])
+            while True:
+                # Ke menu sesuai role
+                if cekUser["role"] == "Pembeli":
+                    pembeli(database[idnya])
 
-            elif cekUser["role"] == "Penjual":
-                penjual(database[idnya])
-            
-            return "done"
+                elif cekUser["role"] == "Penjual":
+                    penjual(database[idnya])
             
     # Kalau user dan password tidak ditemukan
     print("Username atau password salah.")

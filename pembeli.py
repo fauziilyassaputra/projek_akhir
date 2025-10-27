@@ -1,98 +1,47 @@
-data =   {
-        "user_id":0,
-        "username": "Zutto",
-        "password": "password123",
-        "saldo": 50_000
-    }
-
-
-transaksi = [
-    {
-        "transaksi_id": 0,
-        "user_id": 0,
-        "produk_id": 0, 
-        "status": "menunggu penjual"
-    },
-    {
-        "transaksi_id": 1,
-        "user_id": 1,
-        "produk_id": 1, 
-        "status": "menunggu penjual"
-    },
-]
-
-produk = [
-    {
-        "produk_id": 0,
-        "user_id": 1,
-        "nama": "sabun",
-        "harga": 5000
-    },
-    {
-        "produk_id": 1,
-        "user_id": 1,
-        "nama": "sikat",
-        "harga": 5000
-    },
-    {
-        "produk_id": 2,
-        "user_id": 2,
-        "nama": "sikat",
-        "harga": 5000
-    },
-     {
-        "produk_id": 2,
-        "user_id": 2,
-        "nama": "sikat",
-        "harga": 5000
-    },
-]
-
-
+from data import transaksi, produk
 
 def cek_transaksi(user_id):
     # total transaksi
     total_transaksi = len(transaksi)  
 
+    print("Total transaksimu adalah :")
     for i in range(0,total_transaksi):
         # cek  data transaksi berdasarkan id user
         if user_id == transaksi[i]["user_id"]:
-            print("\n")
-            print("transaksimu adalah :")
-            print(f"produk: {produk[i]["nama"]}, status: {transaksi[i]["status"]}")
-            print("\n")
+            nama_produk = transaksi[i]["produk_id"]
+            print(f"produk: {produk[nama_produk]["nama"]}, status: {transaksi[i]["status"]}")
 
 
-def saldo():
+def cek_saldo(saldo):
     print("============")
     print("anda di halaman saldo")
     print("1 : cek total saldo anda")
     print("2 : tambah saldo")
     pilihan = input("masukkan nomor pilihan anda: ")
-    saldo_sekarang = data["saldo"]
+    # saldo_sekarang = saldo
 
     match pilihan:
         case "1":
-            print(f"saldo anda sekarang totalnya adalah : {saldo_sekarang}")  
+            print(f"saldo anda sekarang totalnya adalah : {saldo}")  
             print("============")       
         case "2":
             nominal_tambah = int(input("masukkan nominal tambahan saldo: "))
-            saldo_sekarang += nominal_tambah
-            print(f"saldo anda sekarang totalnya adalah : {saldo_sekarang}")
+            saldo += nominal_tambah
+            print(f"saldo anda sekarang totalnya adalah : {saldo}")
             print("============")
         case _:
             print("nomor yang anda masukkan tidak valid")
             print("============")
 
             
-def cari_barang(user_id):
+def cari_barang(user_id, saldo):
     print(f"seluruh barang yang tersedia saat ini : ")
     for i in range(len(produk)):
         nomor = i + 1
         print(f"no.{nomor} nama produk = {produk[i]["nama"]}, harga produk = {produk[i]["harga"]}")
     inputan_barang = int(input("masukkan nomor barang yang ingin dibeli: "))
 
-    saldo_user = data["saldo"]
+    saldo_user = saldo
 
     if saldo_user <  produk[inputan_barang - 1]["harga"]:
         print("maaf, saldo anda tidak cukup")
@@ -109,11 +58,13 @@ def cari_barang(user_id):
         transaksi.append(pesanan_user)
         print("selamat anda berhasil memesan")
         print("============")
+        print(transaksi)
 
 # main function
 def pembeli(data):
     # cek id dengan nama user
     id = data['user_id']
+    saldo = data["saldo"]
     
     # informasi untuk input user
     print(f"selamat datang {data['username']}, selamat berbelanja \n")
@@ -129,9 +80,9 @@ def pembeli(data):
         case "1":
             cek_transaksi(id)
         case "2":
-            cari_barang(id)
+            cari_barang(id, saldo)
         case "3":
-            saldo()
+            cek_saldo(saldo)
         case "4":
             pass
         case _:
@@ -139,5 +90,5 @@ def pembeli(data):
 
 
 
-while True:
-    pembeli(data)
+# while True:
+#     pembeli(data)
