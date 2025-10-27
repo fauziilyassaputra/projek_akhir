@@ -82,9 +82,13 @@ def saldo():
             print("nomor yang anda masukkan tidak valid")
 
             
-    
-
-
+def cari_barang(user_id):
+    for i in range(len(produk)):
+        if user_id == produk[i]["user_id"]:
+            nomor = i + 1
+            print(f"no.{nomor}nama produk: {produk[i]["nama"]}, harga produk: {produk[i]["harga"]}")
+            user_input_barang= input(f"ketik sesuai nomor barang yang ingin anda beli : ")
+            
 
 
 
@@ -97,7 +101,7 @@ def pembeli(data):
     print(f"selamat datang {data['username']}, selamat berbelanja \n")
     print("ketik nomor berikut untuk lanjut : ")
     print("1 : cek transaksi ")
-    print("2 : cari barang ")
+    print("2 : cari barang untuk dibeli ")
     print("3 : cek saldo atau tambah saldo ")
     # input user
     pilihan = input("masukkan nomormu :")
