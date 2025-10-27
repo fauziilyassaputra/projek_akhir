@@ -1,19 +1,4 @@
-data = {
-  "user_id": 1,
-  "username": "Lux",
-  "saldo" : 0
-}
-
-produk = [
-  {'produk_id': 0, 'user_id': 1, 'nama': 'Sabun', 'harga': 9000},
-  {'produk_id': 1, 'user_id': 1, 'nama': 'Barang', 'harga': 5000},
-  {'produk_id': 2, 'user_id': 2, 'nama': 'Baju', 'harga': 10000}
-]
-
-transaksi = [
-  {"transaksi_id": 0, "user_id": 0, "produk_id": 0, "status": "Menunggu penjual"},
-  {"transaksi_id": 1, "user_id": 0, "produk_id": 1, "status": "Menunggu penjual"}
-]
+from data import data, produk, transaksi
 
 # Tambah produk ke database Produk
 def tambah_produk(id):
@@ -31,11 +16,11 @@ def tambah_produk(id):
 
 # Cek data produk sesuai id penjual/user
 def list_produk(id):
-  produk_penjual = [x for x in produk if x["user_id"] == id]
+  produk_penjual = [p for p in produk if p["user_id"] == id]
 
   if produk_penjual:
-    for x in produk_penjual:
-      produk_id, _, nama, harga = x.values()
+    for p in produk_penjual:
+      produk_id, _, nama, harga = p.values()
       print(f"{produk_id}. {nama} - Rp {harga:,}")
   else:
     print("Produk tidak tersedia")
