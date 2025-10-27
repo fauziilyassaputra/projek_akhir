@@ -58,7 +58,6 @@ def cari_barang(user_id, saldo):
         transaksi.append(pesanan_user)
         print("selamat anda berhasil memesan")
         print("============")
-        print(transaksi)
 
 # main function
 def pembeli(data):
