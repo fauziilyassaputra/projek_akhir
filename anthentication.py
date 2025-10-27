@@ -5,6 +5,8 @@ database = [
     {"user_id": 2, "username": "Lux", "password": "admin123", "role": "Penjual", "saldo": 0}
 ]
 
+panjangInisialDatabase = int(len(database))
+
 def register():
 
     print("\n--- Registrasi ---")
@@ -54,23 +56,24 @@ def login():
     for cekUser in database:
         if cekUser["username"] == username and cekUser["password"] == password:
             print(f"Login berhasil! {username}")
+            idnya = cekUser["user_id"]
+
+            # dapatkan index pengguna yang login
+            user_index = database.index(cekUser)
+            print(f"Index login di database: {user_index}")
             
             # Ke menu sesuai role
             if cekUser["role"] == "Pembeli":
-                print("--- Menu Pembeli ---")
-                print("1. Lihat Barang")
-                print("2. Logout (Kembali ke menu utama)")
+                pembeli(database[idnya])
 
             elif cekUser["role"] == "Penjual":
-                print("--- Menu Penjual ---")
-                print("1. Tambah Barang")
-                print("2. Logout (Kembali ke menu utama)")
+                penjual(database[idnya])
             
-            return
+            return "done"
             
     # Kalau user dan password tidak ditemukan
     print("Username atau password salah.")
-
+    
 ################################################################################################
 # Bagian utama kode
 
@@ -86,9 +89,9 @@ while True:
 
     pilihan = input("Pilih 1/2/3: ")
     if pilihan == '1':
-        login()  
+        login()
     elif pilihan == '2':
-        register() 
+        register()
     elif pilihan == '3':
         print("Terima kasih!")
         break 
