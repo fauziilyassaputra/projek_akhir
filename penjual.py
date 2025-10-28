@@ -1,4 +1,4 @@
-from data import produk, transaksi
+from data import produk, transaksi, database
 
 # Tambah produk ke database Produk
 def tambah_produk(user_id):
@@ -18,10 +18,11 @@ def tambah_produk(user_id):
 def list_produk(user_id):
   produk_penjual = [p for p in produk if p["user_id"] == user_id]
 
+  # Menampilkan produk penjual dengan id,nama dan harga produk
   if produk_penjual:
     for p in produk_penjual:
       produk_id, _, nama, harga = p.values()
-      print(f"{produk_id}. {nama} - Rp {harga:,}")
+      print(f"ID produk {produk_id}, {nama} dengan harga Rp {harga:,}")
   else:
     print("Produk tidak tersedia")
 
@@ -36,10 +37,51 @@ def cek_transaksi(id):
         transaksi_penjual.append(t)
         break
     
+  # Menampilkan transaksi beserta user pembeli dan produk penjual apa yang di beli
   if transaksi_penjual:
     for t in transaksi_penjual:
       transaksi_id, user_id, produk_id, status = t.values()
-      print(f"{transaksi_id}. {user_id} {produk_id} | Status : {status}")
+      nama_user = database[user_id]["username"]
+      barang = produk[produk_id]
+      print(f"ID transaksi {transaksi_id}. {nama_user}, {barang["nama"]} dengan harga {barang["harga"]} | Status : {status}")
+  else:
+    print("Tidak ada transaksi dengan produk kamu")
+
+  # Mau ubah status transaksi?
+  ubah_status = input("Mau ubah status transaksi? (y/n) ")
+  if ubah_status == "y":
+    title_section("""
+        Ubah status transaksi
+                
+1. Status: Sedang di proses
+2. Status: Sedang dalam pengiriman
+                """)
+    id_transaksi_input = int(input("Masukkan ID transaksi yang akan di ubah: "))
+
+    # Cek apakah id transaksi yang di input ada di dalam transaksi penjual
+    found = False
+    for t in transaksi_penjual:
+      if t["transaksi_id"] == id_transaksi_input:
+        found = True
+        break
+
+    if found:
+      # Memilih tipe status yang akan di ubah
+      pilih_status = int(input("Pilih status yang akan di ubah (1/2)"))
+      
+      match pilih_status:
+        case 1:
+          transaksi[id_transaksi_input]["status"] =  "Sedang di proses"
+          print(f"Status transaksi dengan ID {id_transaksi_input} berhasil di ubah \'Sedang di proses\'")
+        case 2:
+          transaksi[id_transaksi_input]["status"] =  "Sedang dalam pengiriman"
+          print(f"Status transaksi dengan ID {id_transaksi_input} berhasil di ubah \'Sedang dalam pengiriman\'")
+        case _:
+          print("Pilihan status tidak tersedia, silakan cek kembali")
+
+    else:
+      print("Transaksi dengan ID tersebut tidak ditemukan.")
+
 
 def title_section(title):
   print(f"""
