@@ -7,8 +7,6 @@ Pengerjaan bersama tetapi tanggung jawab kode dibagi tiga:
 = Data Transaksi, cek transaksi, membeli barang dan saldo dikurangi, cak saldo, tambah saldo.
 - Penjual: Farid
 = Data Produk, melihat list produk, tambah produk, cek transaksi, ubah status transaksi.
-# flowchart
-
 
 
 # tujuan
