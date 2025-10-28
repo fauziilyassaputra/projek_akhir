@@ -13,25 +13,23 @@ def cek_transaksi(user_id):
 
 
 def cek_saldo(saldo):
-    print("============")
     print("anda di halaman saldo")
     print("1 : cek total saldo anda")
     print("2 : tambah saldo")
     pilihan = input("masukkan nomor pilihan anda: ")
-    # saldo_sekarang = saldo
+   
 
     match pilihan:
         case "1":
-            print(f"saldo anda sekarang totalnya adalah : {saldo}")  
-            print("============")       
+            print(f"saldo anda sekarang totalnya adalah : {saldo}")      
         case "2":
             nominal_tambah = int(input("masukkan nominal tambahan saldo: "))
             saldo += nominal_tambah
             print(f"saldo anda sekarang totalnya adalah : {saldo}")
-            print("============")
+            
         case _:
             print("nomor yang anda masukkan tidak valid")
-            print("============")
+    return saldo
 
             
 def cari_barang(user_id, saldo):
@@ -46,6 +44,8 @@ def cari_barang(user_id, saldo):
     if saldo_user <  produk[inputan_barang - 1]["harga"]:
         print("maaf, saldo anda tidak cukup")
         print("============")
+    
+    saldo_user -= produk[inputan_barang - 1]["harga"]
         
     pesanan_user = {
         "transaksi_id": len(transaksi),
@@ -58,30 +58,41 @@ def cari_barang(user_id, saldo):
         transaksi.append(pesanan_user)
         print("selamat anda berhasil memesan")
         print("============")
+ 
+    return saldo_user
 
 # main function
 def pembeli(data):
-    # cek id dengan nama user
+    #id dan saldo user
     id = data['user_id']
     saldo = data["saldo"]
     
     # informasi untuk input user
-    print(f"selamat datang {data['username']}, selamat berbelanja \n")
+    print("============")
+    print(f"selamat datang {data['username']}, selamat berbelanja ")
     print("ketik nomor berikut untuk lanjut : ")
     print("1 : cek transaksi ")
     print("2 : cari barang untuk dibeli ")
     print("3 : cek saldo atau tambah saldo ")
     # input user
     pilihan = input("masukkan nomormu :")
-
+    print("============")
     # cek transaksi
     match pilihan:
         case "1":
             cek_transaksi(id)
         case "2":
-            cari_barang(id, saldo)
+            saldo_belanja = cari_barang(id, saldo)
+            # perbarui dictionary di file data
+            data["saldo"] = saldo_belanja
+            # perbarui variable saldo diatas
+            saldo = saldo_belanja
         case "3":
-            cek_saldo(saldo)
+            saldo_baru = cek_saldo(saldo)
+            # perbarui dictionary di file data
+            data['saldo'] = saldo_baru
+            # perbarui variable saldo diatas
+            saldo = saldo_baru
         case "4":
             pass
         case _:
