@@ -1,7 +1,7 @@
 from data import transaksi, produk
 
 def cek_transaksi(user_id):
-    # total transaksi
+    # total transaksi yang ada
     total_transaksi = len(transaksi)  
 
     print("Total transaksimu adalah :")
@@ -21,14 +21,17 @@ def cek_saldo(saldo):
 
     match pilihan:
         case "1":
+            # cek saldo
             print(f"saldo anda sekarang totalnya adalah : {saldo}")      
         case "2":
+            # input jumlah saldo yang akan ditambahkan
             nominal_tambah = int(input("masukkan nominal tambahan saldo: "))
             saldo += nominal_tambah
             print(f"saldo anda sekarang totalnya adalah : {saldo}")
             
         case _:
             print("nomor yang anda masukkan tidak valid")
+    # saldo di return untuk memperbarui jumlah saldo
     return saldo
 
             
@@ -40,13 +43,15 @@ def cari_barang(user_id, saldo):
     inputan_barang = int(input("masukkan nomor barang yang ingin dibeli: "))
 
     saldo_user = saldo
-
+    # cek jika saldo ternyata kurang 
     if saldo_user <  produk[inputan_barang - 1]["harga"]:
         print("maaf, saldo anda tidak cukup")
         print("============")
     
+    # saldo yang dimiliki dikurangi dengan harga barang
     saldo_user -= produk[inputan_barang - 1]["harga"]
-        
+    
+    # buat dictionary pesanan
     pesanan_user = {
         "transaksi_id": len(transaksi),
         "produk_id": inputan_barang - 1,
@@ -54,11 +59,13 @@ def cari_barang(user_id, saldo):
         "status": "Menunggu penjual"
     }
 
+    # tambahkan datanya jika tidak ada error apapun
     if pesanan_user != False:
         transaksi.append(pesanan_user)
         print("selamat anda berhasil memesan")
         print("============")
- 
+    
+    # return untuk memperbarui saldo yang sudah dikurangi
     return saldo_user
 
 # main function
@@ -98,7 +105,3 @@ def pembeli(data):
         case _:
             print("pilihan tidak tersedia")
 
-
-
-# while True:
-#     pembeli(data)
