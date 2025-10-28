@@ -67,7 +67,7 @@ def cek_transaksi(id):
 
     if found:
       # Memilih tipe status yang akan di ubah
-      pilih_status = int(input("Pilih status yang akan di ubah (1/2)"))
+      pilih_status = int(input(f"Ubah status \'{transaksi[id_transaksi_input]["status"]}\' menjadi (1/2) : "))
       
       match pilih_status:
         case 1:
