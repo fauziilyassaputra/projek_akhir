@@ -49,8 +49,10 @@ def cari_barang(user_id, saldo):
         print("===================")
     
     # saldo yang dimiliki dikurangi dengan harga barang
-    saldo_user -= produk[inputan_barang - 1]["harga"]
-    
+    harga_produk = produk[inputan_barang - 1]["harga"]
+    saldo_user -= harga_produk
+    nama_barang = produk[inputan_barang - 1]["nama"]
+
     # buat dictionary pesanan
     pesanan_user = {
         "transaksi_id": len(transaksi),
@@ -62,7 +64,7 @@ def cari_barang(user_id, saldo):
     # tambahkan datanya jika tidak ada error apapun
     if pesanan_user != False:
         transaksi.append(pesanan_user)
-        print("Selamat! Anda berhasil memesan")
+        print(f"\nSelamat! Anda berhasil memesan {nama_barang} dengan harga {harga_produk}")
         print("===================")
     
     # return untuk memperbarui saldo yang sudah dikurangi
