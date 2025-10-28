@@ -13,24 +13,24 @@ def cek_transaksi(user_id):
 
 
 def cek_saldo(saldo):
-    print("anda di halaman saldo")
-    print("1 : cek total saldo anda")
+    print("Anda di halaman saldo")
+    print("1 : cek total saldo Anda")
     print("2 : tambah saldo")
-    pilihan = input("masukkan nomor pilihan anda: ")
+    pilihan = input("masukkan nomor pilihan Anda: ")
    
 
     match pilihan:
         case "1":
             # cek saldo
-            print(f"saldo anda sekarang totalnya adalah : {saldo}")      
+            print(f"saldo Anda sekarang totalnya adalah : {saldo}")      
         case "2":
             # input jumlah saldo yang akan ditambahkan
             nominal_tambah = int(input("masukkan nominal tambahan saldo: "))
             saldo += nominal_tambah
-            print(f"saldo anda sekarang totalnya adalah : {saldo}")
+            print(f"saldo Anda sekarang totalnya adalah : {saldo}")
             
         case _:
-            print("nomor yang anda masukkan tidak valid")
+            print("nomor yang Anda masukkan tidak valid")
     # saldo di return untuk memperbarui jumlah saldo
     return saldo
 
@@ -45,8 +45,8 @@ def cari_barang(user_id, saldo):
     saldo_user = saldo
     # cek jika saldo ternyata kurang 
     if saldo_user <  produk[inputan_barang - 1]["harga"]:
-        print("maaf, saldo anda tidak cukup")
-        print("============")
+        print("maaf, saldo Anda tidak cukup")
+        print("===================")
     
     # saldo yang dimiliki dikurangi dengan harga barang
     saldo_user -= produk[inputan_barang - 1]["harga"]
@@ -62,8 +62,8 @@ def cari_barang(user_id, saldo):
     # tambahkan datanya jika tidak ada error apapun
     if pesanan_user != False:
         transaksi.append(pesanan_user)
-        print("selamat anda berhasil memesan")
-        print("============")
+        print("Selamat! Anda berhasil memesan")
+        print("===================")
     
     # return untuk memperbarui saldo yang sudah dikurangi
     return saldo_user
@@ -75,15 +75,16 @@ def pembeli(data):
     saldo = data["saldo"]
     
     # informasi untuk input user
-    print("============")
-    print(f"selamat datang {data['username']}, selamat berbelanja ")
+    print("\n=== Menu Utama Pembeli ====")
+    print(f"Selamat datang, {data['username']}. Selamat berbelanja.")
     print("ketik nomor berikut untuk lanjut : ")
     print("1 : cek transaksi ")
     print("2 : cari barang untuk dibeli ")
     print("3 : cek saldo atau tambah saldo ")
+    print("4 : Keluar")
     # input user
-    pilihan = input("masukkan nomormu :")
-    print("============")
+    pilihan = input("Masukkan nomormu: ")
+    print("===================")
     # cek transaksi
     match pilihan:
         case "1":
@@ -101,7 +102,8 @@ def pembeli(data):
             # perbarui variable saldo diatas
             saldo = saldo_baru
         case "4":
-            pass
+            print("Terima kasih!")
+            return "keluar"
         case _:
             print("pilihan tidak tersedia")
 

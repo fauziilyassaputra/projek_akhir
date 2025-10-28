@@ -91,17 +91,16 @@ def title_section(title):
 """)
 
 def penjual(data_user):
-  print(f"""
-Selamat datang {data_user["username"]}
-        
+  print("\n======== Menu Utama Penjual =========")
+  print(f"""\
+Selamat datang, {data_user["username"]}
 Silakan pilih tugas anda:
   1. Lihat Produk kamu
   2. Tambah Produk
   3. Cek transaksi
   4. Keluar
-
 """)
-  task = input("Pilih tugas(1/2/3/4): ")
+  task = input("Pilih tugas (1/2/3/4): ")
 
   match task:
     case "1":
@@ -115,7 +114,7 @@ Silakan pilih tugas anda:
       cek_transaksi(data_user["user_id"])
     case "4":
       print("Terima kasih!")
-      exit()
+      return "keluar"
     case _:
       print("Maaf pilihan tidak ada di list")
 
