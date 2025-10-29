@@ -26,8 +26,11 @@ def cek_saldo(saldo):
         case "2":
             # input jumlah saldo yang akan ditambahkan
             nominal_tambah = int(input("masukkan nominal tambahan saldo: "))
-            saldo += nominal_tambah
-            print(f"saldo Anda sekarang totalnya adalah : {saldo}")
+            if nominal_tambah > 0:
+                saldo += nominal_tambah
+                print(f"saldo Anda sekarang totalnya adalah : {saldo}")
+            else:
+                print("nominal yang Anda masukkan tidak valid")
             
         case _:
             print("nomor yang Anda masukkan tidak valid")
@@ -87,8 +90,9 @@ def pembeli(data):
     # input user
     pilihan = input("Masukkan nomormu: ")
     print("===================")
-    # cek transaksi
+    
     match pilihan:
+        # cek transaksi
         case "1":
             cek_transaksi(id)
         case "2":
