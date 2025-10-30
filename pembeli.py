@@ -59,8 +59,8 @@ def cari_barang(user_id, saldo):
     # buat dictionary pesanan
     pesanan_user = {
         "transaksi_id": len(transaksi),
-        "produk_id": inputan_barang - 1,
         "user_id": user_id,
+        "produk_id": inputan_barang - 1,
         "status": "Menunggu penjual"
     }
 
